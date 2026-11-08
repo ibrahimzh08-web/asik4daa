@@ -1,19 +1,16 @@
 package org.example;
 
-import org.example.matching.KMPMatcher;
-import org.example.matching.NaiveMatcher;
-import org.example.matching.RabinKarpMatcher;
-import org.example.matching.StringMatcher;
+import org.example.suffix.Kasai;
+import org.example.suffix.SuffixArray;
+
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        StringMatcher[] matchers = {new NaiveMatcher(), new KMPMatcher(), new RabinKarpMatcher()};
-        for (StringMatcher m : matchers) {
-            System.out.println(m.name());
-            System.out.println(m.search("abababa", "aba"));    // [0, 2, 4]
-            System.out.println(m.search("abcdefg", "xyz"));    // []
-            System.out.println(m.search("abc", ""));           // []
-            System.out.println(m.search("ab", "abc"));         // []
-        }
+        String s = "banana";
+        int[] sa = SuffixArray.build(s);
+        int[] lcp = Kasai.buildLcp(s, sa);
+        System.out.println(Arrays.toString(sa));    // [5, 3, 1, 0, 4, 2]
+        System.out.println(Arrays.toString(lcp));   // [0, 1, 3, 0, 0, 2]
     }
 }
