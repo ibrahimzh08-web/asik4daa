@@ -1,13 +1,17 @@
 package org.example;
 
-import org.example.dp.EditDistance;
-import org.example.dp.LCS;
+import org.example.matching.KMPMatcher;
+import org.example.matching.NaiveMatcher;
+import org.example.matching.StringMatcher;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(LCS.length("ABCBDAB", "BDCABA"));
-        System.out.println(LCS.length("abc", "xyz"));
-        System.out.println(EditDistance.distance("kitten", "sitting"));
-        System.out.println(EditDistance.distance("", "abc"));
+        StringMatcher[] matchers = {new NaiveMatcher(), new KMPMatcher()};
+        for (StringMatcher m : matchers) {
+            System.out.println(m.name());
+            System.out.println(m.search("abababa", "aba"));    // [0, 2, 4]
+            System.out.println(m.search("abcdefg", "xyz"));    // []
+            System.out.println(m.search("abc", ""));           // []
+        }
     }
 }
